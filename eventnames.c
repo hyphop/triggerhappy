@@ -26,6 +26,9 @@ const char *lookup_event_name_i( const int evtype, const int evcode ) {
 }
 
 const char *lookup_event_name( const struct input_event ev ) {
+	if ( EV_MSC == ev.type && MSC_SCAN == ev.code ){
+	    return EV_NAME[EV_MSC];
+	}
 	return lookup_event_name_i( ev.type, ev.code );
 }
 
@@ -51,6 +54,11 @@ static int lookup_index(const char **map, const char *value, int max) {
 
 int lookup_event_code( const char *eventname ) {
 	int res = -1;
+
+	if ( strcmp( eventname, "EV_MSC" ) == 0  ) {
+		return MSC_SCAN;
+	}
+
 	if (res == -1) res = lookup_index(KEY_NAME, eventname, KEY_MAX);
 	if (res == -1) res = lookup_index(SW_NAME, eventname, SW_MAX);
 	if (res == -1) res = lookup_index(REL_NAME, eventname, REL_MAX);
@@ -59,6 +67,11 @@ int lookup_event_code( const char *eventname ) {
 }
 
 int lookup_event_type( const char *eventname ) {
+
+	if ( strcmp( eventname, "EV_MSC" ) == 0  ) {
+		return EV_MSC;
+	}
+
 	if (lookup_index(KEY_NAME, eventname, KEY_MAX) != -1) {
 		return EV_KEY;
 	}

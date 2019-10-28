@@ -14,3 +14,5 @@ KEY_F12@media			1	@ # switch back to nameless default mode
 KEY_KPASTERISK			1	<KEY_VOLUMEDOWN # emit a synthetic key event through uinput
 # enable trigger only on devices tagged "sys"
 <sys>KEY_F11			1	id
+# type 4 (EV_MSC), code 4 (MSC_SCAN), value 589825
+EV_MSC	589825	echo "ir scan code example 589825"

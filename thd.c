@@ -111,7 +111,9 @@ static int read_event( device *dev ) {
 		return 1;
 	}
 	/* ignore all events except KEY, SW and REL*/
-	if (ev.type == EV_KEY || ev.type == EV_SW || ev.type == EV_REL || ev.type == EV_ABS) {
+	if (ev.type == EV_KEY || ev.type == EV_SW || ev.type == EV_REL ||
+		ev.type == EV_MSC ||
+		ev.type == EV_ABS) {
 		if (ev.type == EV_KEY && is_ignored( ev.code, ignored_keys)) {
 			return 0;
 		}
@@ -248,8 +250,11 @@ static void list_event_table(int type, int max) {
 
 static void list_events(void) {
 	list_event_table(EV_KEY, KEY_MAX);
+	fprintf(stderr, "---\n");
 	list_event_table(EV_SW, SW_MAX);
+	fprintf(stderr, "---\n");
 	list_event_table(EV_REL, REL_MAX);
+	fprintf(stderr, "---\n");
 	list_event_table(EV_ABS, REL_MAX);
 }
 
